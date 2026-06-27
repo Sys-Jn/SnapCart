@@ -1,4 +1,4 @@
-name: Deploy KOVA to AWS
+name: Deploy SnapCart to AWS
 
 on:
   push:
