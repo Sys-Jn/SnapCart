@@ -24,5 +24,5 @@ jobs:
           application_name: ${{ secrets.AWS_EB_APP_NAME }}
           environment_name: ${{ secrets.AWS_EB_ENV_NAME }}
           region: ${{ secrets.AWS_REGION }}
-          version_label: "kova-${{ github.run_number }}"
+          version_label: "snapcart-${{ github.run_number }}"
           deployment_package: deploy.zip
