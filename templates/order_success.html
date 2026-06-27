@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-wrap narrow">
+  <div class="success-state">
+    <div class="success-icon">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h1>Order Confirmed!</h1>
+    <p>Thank you for shopping with SnapCart. Your payment was successful and your order is being processed.</p>
+    <p class="success-note">You'll receive a confirmation email shortly.</p>
+    <a href="{{ url_for('index') }}" class="btn-primary">Continue Shopping</a>
+  </div>
+</div>
+{% endblock %}

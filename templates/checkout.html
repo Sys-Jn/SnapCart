@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-wrap narrow">
+  <div class="page-header">
+    <h1 class="page-title">Checkout</h1>
+    <p class="page-sub">You're one step away!</p>
+  </div>
+
+  <div class="checkout-card">
+    <div class="checkout-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <h2>Secure Payment</h2>
+    <p>Your payment is protected by Razorpay's 256-bit SSL encryption.</p>
+
+    <div class="checkout-total">
+      <span>Amount to Pay</span>
+      <span class="checkout-amount">₹{{ total_paise // 100 }}</span>
+    </div>
+
+    <button id="pay-btn" class="btn-primary full">
+      Pay ₹{{ total_paise // 100 }} with Razorpay
+    </button>
+
+    <div class="payment-icons">
+      <span>UPI</span><span>Cards</span><span>Netbanking</span><span>Wallets</span>
+    </div>
+  </div>
+</div>
+
+<form id="payment-form" action="{{ url_for('verify_payment') }}" method="POST" style="display:none">
+  <input type="hidden" name="razorpay_order_id"   id="rzp_order_id">
+  <input type="hidden" name="razorpay_payment_id" id="rzp_payment_id">
+  <input type="hidden" name="razorpay_signature"  id="rzp_signature">
+</form>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+  key:         "{{ razorpay_key_id }}",
+  amount:      "{{ total_paise }}",
+  currency:    "INR",
+  name:        "SnapCart",
+  description: "Order Payment",
+  order_id:    "{{ razorpay_order_id }}",
+  handler: function(response){
+    document.getElementById('rzp_order_id').value   = response.razorpay_order_id;
+    document.getElementById('rzp_payment_id').value = response.razorpay_payment_id;
+    document.getElementById('rzp_signature').value  = response.razorpay_signature;
+    document.getElementById('payment-form').submit();
+  },
+  prefill:{ name:"{{ user.name }}", email:"{{ user.email }}" },
+  theme:{ color:"#1a1a1a" }
+};
+document.getElementById('pay-btn').onclick = function(e){
+  var rzp = new Razorpay(options);
+  rzp.open(); e.preventDefault();
+};
+</script>
+{% endblock %}

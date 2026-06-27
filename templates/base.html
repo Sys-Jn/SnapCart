@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SnapCart– Curated Essentials</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">Free shipping on orders above ₹999 &nbsp;·&nbsp; Use code <strong>SNAP10</strong> for 10% off</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="{{ url_for('index') }}" class="brand">SnapCart</a>
+
+  <ul class="nav-links">
+    <li><a href="{{ url_for('index') }}">Shop</a></li>
+    <li><a href="{{ url_for('index') }}#new">New In</a></li>
+    <li><a href="{{ url_for('index') }}#popular">Popular</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    {% if current_user.is_authenticated %}
+      <span class="nav-user">Hi, {{ current_user.name.split()[0] }}</span>
+      <a href="{{ url_for('logout') }}" class="nav-icon-link">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}" class="nav-icon-link">Login</a>
+      <a href="{{ url_for('register') }}" class="nav-icon-link">Register</a>
+    {% endif %}
+    <a href="{{ url_for('cart') }}" class="cart-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      {% set cart_count = session.get('cart', {})|length %}
+      {% if cart_count > 0 %}<span class="cart-badge">{{ cart_count }}</span>{% endif %}
+    </a>
+  </div>
+</nav>
+
+<!-- FLASH MESSAGES -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flash-wrap">
+      {% for msg in messages %}
+        <div class="flash">{{ msg }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- PAGE CONTENT -->
+{% block content %}{% endblock %}
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand">SnapCart</span>
+      <p>Curated essentials for modern living.<br/>Crafted with care, delivered with love.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Shop</h4>
+      <a href="{{ url_for('index') }}">All Products</a>
+      <a href="#">New Arrivals</a>
+      <a href="#">Best Sellers</a>
+    </div>
+    <div class="footer-links">
+      <h4>Help</h4>
+      <a href="#">Shipping Policy</a>
+      <a href="#">Returns</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="footer-links">
+      <h4>Follow</h4>
+      <a href="#">Instagram</a>
+      <a href="#">Twitter</a>
+      <a href="#">Pinterest</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 SnapCart. All rights reserved.</span>
+    <span>Made with ♥ in India</span>
+  </div>
+</footer>
+
+</body>
+</html>

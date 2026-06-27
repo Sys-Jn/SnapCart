@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>Create account</h1>
+      <p>Join SnapCart and start shopping</p>
+    </div>
+    <form method="POST" class="auth-form">
+      <div class="field">
+        <label>Full Name</label>
+        <input type="text" name="name" placeholder="Your name" required/>
+      </div>
+      <div class="field">
+        <label>Email address</label>
+        <input type="email" name="email" placeholder="you@example.com" required/>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Min. 8 characters" required/>
+      </div>
+      <button type="submit" class="btn-primary full">Create Account</button>
+    </form>
+    <p class="auth-switch">Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
+  </div>
+  <div class="auth-visual">
+    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80" alt="SnapCart store"/>
+    <div class="auth-visual-text">
+      <span class="brand" style="color:white;font-size:28px;">SnapCart</span>
+      <p>Curated essentials for modern living</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

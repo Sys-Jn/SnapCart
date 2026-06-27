@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="product-detail">
+  <!-- Gallery -->
+  <div class="product-gallery">
+    <div class="product-gallery-main">
+      <img src="{{ product.image_url }}" alt="{{ product.name }}" id="mainImg"/>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="product-detail-info">
+    <span class="product-detail-tag">{{ product.category|title if product.category else 'Curated Essential' }}</span>
+    <h1 class="product-detail-name">{{ product.name }}</h1>
+    <span class="product-detail-price">₹{{ product.price }}</span>
+    <p class="product-detail-desc">{{ product.description }}<br/><br/>Handpicked for quality and crafted with care. Each SnapCart product is selected to elevate your everyday. Made with sustainable materials where possible, and delivered in eco-friendly packaging.</p>
+
+    <!-- Qty + Add to Cart -->
+    <div class="product-detail-add">
+      <div class="qty-control">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <div class="qty-display" id="qtyDisplay">1</div>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+      <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn-primary" style="flex:1;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Add to Cart
+      </a>
+    </div>
+
+    <div class="product-meta">
+      <div class="meta-row"><span class="meta-label">Stock</span><span class="meta-value" style="color:var(--green);">{{ product.stock }} units available</span></div>
+      <div class="meta-row"><span class="meta-label">Category</span><span class="meta-value">{{ product.category|title if product.category else '—' }}</span></div>
+      <div class="meta-row"><span class="meta-label">SKU</span><span class="meta-value">SnapCart-{{ '%04d' % product.id }}</span></div>
+      <div class="meta-row"><span class="meta-label">Shipping</span><span class="meta-value">{% if product.price >= 999 %}Free{% else %}₹99 flat rate{% endif %}</span></div>
+      <div class="meta-row"><span class="meta-label">Returns</span><span class="meta-value">7-day easy returns</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Related Products -->
+{% if related %}
+<section class="products-section" style="padding:60px 0;">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <p class="section-label">You May Also Like</p>
+        <h2 class="section-title" style="margin-bottom:0;">Related Products</h2>
+      </div>
+    </div>
+    <div class="products-grid">
+      {% for p in related %}
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="{{ p.image_url }}" alt="{{ p.name }}" loading="lazy"/>
+          <div class="product-overlay">
+            <a href="{{ url_for('add_to_cart', product_id=p.id) }}" class="quick-add">+ Add to Cart</a>
+            <a href="{{ url_for('product_detail', product_id=p.id) }}" class="quick-view">View Details</a>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{ p.name }}</h3>
+          <p class="product-desc">{{ p.description }}</p>
+          <div class="product-footer">
+            <span class="product-price">₹{{ p.price }}</span>
+            <a href="{{ url_for('add_to_cart', product_id=p.id) }}" class="btn-cart">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<script>
+let qty = 1;
+function changeQty(delta) {
+  qty = Math.max(1, qty + delta);
+  document.getElementById('qtyDisplay').textContent = qty;
+}
+</script>
+{% endblock %}
