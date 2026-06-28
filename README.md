@@ -193,9 +193,7 @@ git push origin main
 
 ## Author
 
-**Sanyam Jain**
+Sanyam Jain
+
 ---
 
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
