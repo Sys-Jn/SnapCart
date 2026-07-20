@@ -28,42 +28,55 @@ def load_user(user_id):
 # ── PRODUCTS DATA ───────────────────────────────────────────────────────
 PRODUCTS = [
     {"name": "Minimal Leather Watch", "price": 2499, "description": "Genuine leather strap, sapphire glass",
+     "category": "accessories", "is_popular": True,
      "image_url": "https://i.pinimg.com/736x/4c/c4/8f/4cc48f399abd5a96d1b8291fd32e90c5.jpg"},
 
     {"name": "Ceramic Coffee Set", "price": 1299, "description": "Handcrafted ceramic dripper & mug",
+     "category": "lifestyle", "is_popular": False,
      "image_url": "https://i.pinimg.com/originals/02/9a/b0/029ab0ef346caa284f3fe132f5c3d147.jpg"},
 
     {"name": "Linen Tote Bag", "price": 799, "description": "Natural linen, reinforced handles",
+     "category": "apparel", "is_popular": True,
      "image_url": "https://i.pinimg.com/1200x/ad/ef/03/adef0341b8783f013ecaa1fe60e778f4.jpg"},
 
     {"name": "Wireless Earbuds", "price": 3499, "description": "40hr battery, active noise cancellation",
+     "category": "accessories", "is_popular": False,
      "image_url": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80"},
 
     {"name": "Merino Wool Sweater", "price": 1999, "description": "100% merino, naturally breathable",
+     "category": "apparel", "is_popular": True,
      "image_url": "https://i.pinimg.com/1200x/df/36/66/df3666dac77501c62681407212014ac1.jpg"},
 
     {"name": "Hardcover Notebook", "price": 499, "description": "A5, 200 pages, dotted grid",
+     "category": "books", "is_popular": False,
      "image_url": "https://i.pinimg.com/1200x/fd/5e/d5/fd5ed549a5db368205c02206b039afce.jpg"},
 
     {"name": "Bamboo Desk Organiser", "price": 899, "description": "Sustainable bamboo, 6 compartments",
+     "category": "lifestyle", "is_popular": True,
      "image_url": "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=600&q=80"},
 
     {"name": "Scented Soy Candle", "price": 649, "description": "Cedarwood & vanilla, 50hr burn",
+     "category": "lifestyle", "is_popular": False,
      "image_url": "https://i.pinimg.com/736x/11/92/69/1192690c1f2fe0e23d9e9b9478a28175.jpg"},
 
     {"name": "Running Sneakers", "price": 2999, "description": "Lightweight mesh, cushioned sole",
+     "category": "lifestyle", "is_popular": True,
      "image_url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80"},
 
     {"name": "Stainless Steel Bottle", "price": 799, "description": "750ml, keeps cold 24hrs, hot 12hrs",
-     "image_url": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&q=80"},  # FIXED duplicate
+     "category": "lifestyle", "is_popular": False,
+     "image_url": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&q=80"},
 
     {"name": "Wooden Sunglasses", "price": 1599, "description": "Walnut frame, polarised UV400 lens",
+     "category": "accessories", "is_popular": False,
      "image_url": "https://i.pinimg.com/1200x/15/20/74/1520745b92fd43952251910fa70a0cb7.jpg"},
 
     {"name": "Cotton Pyjama Set", "price": 1199, "description": "100% organic cotton, relaxed fit",
+    "category": "apparel", "is_popular": False,
      "image_url": "https://i.pinimg.com/736x/e5/9a/4f/e59a4f46865206356949a41bee48551f.jpg"},
 
     {"name": "Aroma Diffuser", "price": 1199, "description": "Ultrasonic mist, wooden cover",
+     "category": "lifestyle", "is_popular": False,
      "image_url": "https://aromatherapynaturals.com/wp-content/uploads/2023/09/how-do-you-use-theultrasonic-aromatherapy-essential-oil-diffuser-100ml-cool-mist-humidifier_130.png"},
 ]
 
@@ -73,10 +86,11 @@ def seed_products():
         existing = Product.query.filter_by(name=p["name"]).first()
 
         if existing:
-            # Update existing product (fix mismatch issue)
             existing.price = p["price"]
             existing.description = p["description"]
             existing.image_url = p["image_url"]
+            existing.category = p["category"]
+            existing.is_popular = p["is_popular"]
         else:
             db.session.add(
                 Product(
@@ -84,7 +98,7 @@ def seed_products():
                     price=p["price"],
                     description=p["description"],
                     image_url=p["image_url"],
-                    category=p.get("category", "lifestyle"),
+                    category=p["category"],
                     is_popular=p.get("is_popular", False)
                 )
             )

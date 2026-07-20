@@ -18,8 +18,8 @@
 
   <ul class="nav-links">
     <li><a href="{{ url_for('index') }}">Shop</a></li>
-    <li><a href="{{ url_for('index') }}#new">New In</a></li>
-    <li><a href="{{ url_for('index') }}#popular">Popular</a></li>
+    <li><a href="{{ url_for('index', filter='new') }}">New In</a></li>
+    <li><a href="{{ url_for('index', filter='popular') }}">Popular</a></li>
   </ul>
 
   <div class="nav-actions">

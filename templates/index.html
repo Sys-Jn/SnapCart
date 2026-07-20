@@ -18,22 +18,21 @@
   </div>
 </section>
 
-<!-- CATEGORIES -->
 <section class="categories">
   <div class="section-inner">
     <div class="cat-grid">
-      <div class="cat-card" style="background-image:url('https://i.pinimg.com/736x/c4/76/58/c4765868e3ee2a0cbbaea84b4f2beeac.jpg')">
+      <a class="cat-card" href="{{ url_for('index', category='accessories') }}" style="background-image:url('https://i.pinimg.com/736x/c4/76/58/c4765868e3ee2a0cbbaea84b4f2beeac.jpg')">
         <div class="cat-overlay"><span>Accessories</span></div>
-      </div>
-      <div class="cat-card" style="background-image:url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&q=80')">
+      </a>
+      <a class="cat-card" href="{{ url_for('index', category='lifestyle') }}" style="background-image:url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&q=80')">
         <div class="cat-overlay"><span>Lifestyle</span></div>
-      </div>
-      <div class="cat-card" style="background-image:url('https://i.pinimg.com/1200x/b3/bb/3b/b3bb3bd28a5ab09a67bc4fb15ce3b11e.jpg')">
+      </a>
+      <a class="cat-card" href="{{ url_for('index', category='books') }}" style="background-image:url('https://i.pinimg.com/1200x/b3/bb/3b/b3bb3bd28a5ab09a67bc4fb15ce3b11e.jpg')">
         <div class="cat-overlay"><span>Books & Stationery</span></div>
-      </div>
-      <div class="cat-card" style="background-image:url('https://i.pinimg.com/736x/d2/b1/cf/d2b1cfe7826c95bb2c715ca74b5e0594.jpg')">
+      </a>
+      <a class="cat-card" href="{{ url_for('index', category='apparel') }}" style="background-image:url('https://i.pinimg.com/736x/d2/b1/cf/d2b1cfe7826c95bb2c715ca74b5e0594.jpg')">
         <div class="cat-overlay"><span>Apparel</span></div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -47,9 +46,9 @@
         <h2 class="section-title">Featured Products</h2>
       </div>
       <div class="filter-tabs">
-        <button class="filter-btn active" onclick="filterAll(this)">All</button>
-        <button class="filter-btn" onclick="filterAll(this)">New In</button>
-        <button class="filter-btn" onclick="filterAll(this)">Popular</button>
+          <a href="{{ url_for('index') }}" class="filter-btn">All</a>
+          <a href="{{ url_for('index', filter='new') }}" class="filter-btn">New In</a>
+          <a href="{{ url_for('index', filter='popular') }}" class="filter-btn">Popular</a>
       </div>
     </div>
 
